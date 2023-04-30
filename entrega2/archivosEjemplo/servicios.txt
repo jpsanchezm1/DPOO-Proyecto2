@@ -1,0 +1,4 @@
+Tenis;23
+TV;15
+Basket;2.2
+Tenis;23.6
