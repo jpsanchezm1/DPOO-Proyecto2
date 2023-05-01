@@ -37,7 +37,7 @@ public class ControladorTarifaHabitacion {
 			LocalDate fechaFin = LocalDate.parse(fechas[1]);
 			boolean fechaContenida = fecha.isAfter(fechaInicio) && fecha.isBefore(fechaFin);
 			if (fechaContenida || rango.contains(fechaString)) {
-				String diaDeLaSemana = Utilidades.DIAS_EN_ESPANOL.get(fecha.getDayOfWeek());
+				String diaDeLaSemana = Utilidades.getDiaEnEspaniol(fecha.getDayOfWeek());
 				precio = mapaTarifas.get(rango).get(diaDeLaSemana);
 				tarifaHallada = true;
 			}

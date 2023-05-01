@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Utilidades {
 
-	public static final Map<DayOfWeek, String> DIAS_EN_ESPANOL = new HashMap<>();
+	private static final Map<DayOfWeek, String> DIAS_EN_ESPANOL = new HashMap<>();
 	static {
 		DIAS_EN_ESPANOL.put(DayOfWeek.MONDAY, "L");
 		DIAS_EN_ESPANOL.put(DayOfWeek.TUESDAY, "M");
@@ -16,4 +16,8 @@ public class Utilidades {
 		DIAS_EN_ESPANOL.put(DayOfWeek.SATURDAY, "S");
 		DIAS_EN_ESPANOL.put(DayOfWeek.SUNDAY, "D");
 	}
+	public static String getDiaEnEspaniol(DayOfWeek dia) {
+		return DIAS_EN_ESPANOL.get(dia);
+	}
+	
 }
