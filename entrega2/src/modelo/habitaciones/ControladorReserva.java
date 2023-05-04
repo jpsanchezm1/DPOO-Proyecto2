@@ -3,6 +3,10 @@ package modelo.habitaciones;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import modelo.huespedes.Huesped;
 
@@ -11,13 +15,18 @@ public class ControladorReserva {
 
 	private ArrayList<Reserva> reservasActivas;
 
-	private HashMap<Integer, Habitacion> inventario;
+	// guardamos las habitaciones que aún no han sido reservadas
+	private Set<Integer> habitacionesDis;
 
-	// guardamos por rango las habitaciones que tienen al menos una reserva
+	// guardamos las habitaciones reservadas por id. Los valores son los rangos de
+	// las reservas de la habitacion
+	// los rangos son de la forma fechaInicio;fechaFin
 	private HashMap<Integer, ArrayList<String>> habitacionesRes;
 
-	public ControladorReserva(HashMap<Integer, Habitacion> inventario) {
-		this.inventario = inventario;
+	public ControladorReserva(Map<Integer, Habitacion> inventario) {
+		habitacionesDis = inventario.keySet();
+		reservasActivas = new ArrayList<>();
+		habitacionesRes = new HashMap<>();
 	}
 
 	public void crearReserva(Huesped representante, String fechaInicio, String fechaFin,
@@ -30,46 +39,53 @@ public class ControladorReserva {
 
 	public void reservarHabitacion(int idHab, Reserva reserva) {
 		reserva.aniadirHabitacion(idHab);
-		habitacionesRes.
-	}
+		habitacionesDis.remove(idHab);
 
-	public void aÃ±adirCuotaTotal(Float float1) {
-		reservaActual.sumarACuotaTotal(float1);
+		String rangoFecha = reserva.getFechaInicio() + ";" + reserva.getFechaFin();
+		if (habitacionesRes.containsKey(idHab)) {
+			habitacionesRes.get(idHab).add(rangoFecha);
+		} else {
+			ArrayList<String> nuevaReservas = new ArrayList<>();
+			nuevaReservas.add(rangoFecha);
+			habitacionesRes.put(idHab, nuevaReservas);
+		}
 	}
 
 	// Recibe un rango de fechas y retorna una lista con los id's de las
 	// habitaciones disponibles en dicho rango
-	public ArrayList<Integer> consultarHabitacionesDisponibles(String SfechaInicio, String SfechaFin) {
+	public List<Integer> consultarHabitacionesDisponibles(String SfechaInicio, String SfechaFin) {
 
 		ArrayList<Integer> habitacionesEncontradas = new ArrayList<>();
+
+		if (!(habitacionesDis.isEmpty())) {
+			for (Integer id : habitacionesDis) {
+				habitacionesEncontradas.add(id);
+			}
+		}
 
 		LocalDate fechaInicio = LocalDate.parse(SfechaInicio);
 		LocalDate fechaFin = LocalDate.parse(SfechaFin);
 
-		boolean habitacionHallada = false;
-		Habitacion habDisponible = null;
-		int i = 0;
-		while ((i < habitaciones.size()) && !habitacionHallada) {
-			Habitacion habActual = habitaciones.get(i);
+		for (Entry<Integer, ArrayList<String>> habEntry : habitacionesRes.entrySet()) {
 
-			if (habActual.getReservas().size() == 0) {
-				habDisponible = habActual;
-				habitacionHallada = true;
-			} else {
-				for (Reserva reserva : habActual.getReservas()) {
-					LocalDate inicioReserva = reserva.getFechaInicio();
-					LocalDate finReserva = reserva.getFechaFin();
-
-					if ((fechaInicio.isBefore(inicioReserva) || fechaInicio.isEqual(inicioReserva))
-							|| (fechaFin.isAfter(finReserva) || fechaFin.isEqual(finReserva))) {
-
-						habDisponible = habActual;
-						habitacionHallada = true;
-					}
-				}
+			if (estaDisponible(fechaInicio, fechaFin, habEntry.getValue())) {
+				habitacionesEncontradas.add(habEntry.getKey());
 			}
-			i++;
 		}
+		return habitacionesEncontradas;
 	}
 
+	private boolean estaDisponible(LocalDate fechaInicio, LocalDate fechaFin, ArrayList<String> rangos) {
+		for (String rango : rangos) {
+			String[] fechas = rango.split(";");
+			LocalDate inicio = LocalDate.parse(fechas[0]);
+			LocalDate fin = LocalDate.parse(fechas[1]);
+			if ((fechaInicio.isBefore(fin) || fechaInicio.isEqual(fin))
+					&& (fechaFin.isAfter(inicio) || fechaFin.isEqual(inicio))) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
+

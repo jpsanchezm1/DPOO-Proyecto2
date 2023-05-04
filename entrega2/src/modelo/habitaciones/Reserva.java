@@ -1,16 +1,14 @@
 package modelo.habitaciones;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-
 import modelo.huespedes.Huesped;
 
 public class Reserva {
 
 	private Huesped representante;
 	private ArrayList<Huesped> acompanantes;
-	private LocalDate fechaInicio;
-	private LocalDate fechaFin;
+	private String fechaInicio;
+	private String fechaFin;
 	private boolean activa;
 	private int cuotaTotal;
 	private ArrayList<Integer> habitaciones;
@@ -18,8 +16,8 @@ public class Reserva {
 	public Reserva(Huesped representante, String fechaInicio, String fechaFin, ArrayList<Huesped> acompanantes) {
 		this.representante = representante;
 		this.acompanantes = acompanantes;
-		this.fechaInicio = LocalDate.parse(fechaInicio);
-		this.fechaFin = LocalDate.parse(fechaFin);
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 		activa = true;
 		cuotaTotal = 0;
 		habitaciones = new ArrayList<>();
@@ -29,11 +27,11 @@ public class Reserva {
 		return representante;
 	}
 
-	public LocalDate getFechaInicio() {
+	public String getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public LocalDate getFechaFin() {
+	public String getFechaFin() {
 		return fechaFin;
 	}
 

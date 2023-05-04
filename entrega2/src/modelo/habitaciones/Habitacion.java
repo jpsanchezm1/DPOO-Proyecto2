@@ -1,9 +1,5 @@
 package modelo.habitaciones;
 
-import java.util.ArrayList;
-
-import modelo.huespedes.Huesped;
-
 public class Habitacion {
 
 	private int id;

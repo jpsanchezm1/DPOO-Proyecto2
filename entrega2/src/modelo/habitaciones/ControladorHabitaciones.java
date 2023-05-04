@@ -29,8 +29,7 @@ public class ControladorHabitaciones {
 	}
 	
 	public void actualizarHabitaciones(String rutaArchivo) throws IOException {
-		CargadorHabitaciones cargador = new CargadorHabitaciones();
-		cargador.cargarHabitaciones(rutaArchivo, habitaciones);
+		cargarHabitaciones(rutaArchivo);
 	}
 	
 	public HashMap<Integer, Habitacion> getHabitaciones(){
