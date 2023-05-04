@@ -8,13 +8,16 @@ import modelo.huespedes.Huesped;
 public class Reserva {
 
 	private Huesped representante;
+	private ArrayList<Huesped> acompanantes;
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
 	private boolean activa;
 	private int cuotaTotal;
-	private ArrayList<Habitacion> habitaciones;
+	private ArrayList<Integer> habitaciones;
 
-	public Reserva(String fechaInicio, String fechaFin) {
+	public Reserva(Huesped representante, String fechaInicio, String fechaFin, ArrayList<Huesped> acompanantes) {
+		this.representante = representante;
+		this.acompanantes = acompanantes;
 		this.fechaInicio = LocalDate.parse(fechaInicio);
 		this.fechaFin = LocalDate.parse(fechaFin);
 		activa = true;
@@ -24,10 +27,6 @@ public class Reserva {
 
 	public Huesped getRepresentante() {
 		return representante;
-	}
-
-	public void setRepresentante(Huesped representante) {
-		this.representante = representante;
 	}
 
 	public LocalDate getFechaInicio() {
@@ -46,12 +45,16 @@ public class Reserva {
 		this.activa = activa;
 	}
 
-	public ArrayList<Habitacion> getHabitaciones() {
+	public ArrayList<Integer> getHabitaciones() {
 		return habitaciones;
 	}
+	
+	public ArrayList<Huesped> getAcompanantes(){
+		return acompanantes;
+	}
 
-	public void añadirHabitacion(Habitacion habitacion) {
-		this.habitaciones.add(habitacion);
+	public void aniadirHabitacion(int id) {
+		habitaciones.add(id);
 	}
 
 	public int getCuotaTotal() {

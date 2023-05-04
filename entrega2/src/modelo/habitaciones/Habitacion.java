@@ -2,28 +2,29 @@ package modelo.habitaciones;
 
 import java.util.ArrayList;
 
+import modelo.huespedes.Huesped;
+
 public class Habitacion {
 
 	private int id;
-	private int capacidad;
 	private String tipo;
+	private int capacidad;
 	private String descripcion;
 	private boolean balcon;
 	private boolean vista;
 	private boolean cocina;
-	private ArrayList<Reserva> reservas;
 
-	public Habitacion(int id, int capacidad, String tipo, String descripcion, boolean balcon, boolean vista,
+	public Habitacion(int id, String tipo, int capacidad, String descripcion, boolean balcon, boolean vista,
 			boolean cocina) {
 		super();
 		this.id = id;
-		this.capacidad = capacidad;
 		this.tipo = tipo;
+		this.capacidad = capacidad;
 		this.descripcion = descripcion;
 		this.balcon = balcon;
 		this.vista = vista;
 		this.cocina = cocina;
-		reservas = new ArrayList<Reserva>();
+
 	}
 
 	public int getId() {
@@ -54,10 +55,6 @@ public class Habitacion {
 		return cocina;
 	}
 
-	public ArrayList<Reserva> getReservas() {
-		return reservas;
-	}
-
 	public void setBalcon(boolean balcon) {
 		this.balcon = balcon;
 	}
@@ -70,13 +67,9 @@ public class Habitacion {
 		this.cocina = cocina;
 	}
 
-	public void añadirReserva(Reserva reserva) {
-		this.reservas.add(reserva);
-	}
-
 	@Override
 	public String toString() {
-		return "\nTipo Habitacion: " + tipo + "\n" + "Capacidad habitación: " + capacidad;
+		return "\nTipo Habitacion: " + tipo + "\n" + "Capacidad habitacion: " + capacidad;
 	}
 
 }

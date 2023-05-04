@@ -31,7 +31,7 @@ public class Grupo {
 		this.representante = representante;
 	}
 
-	public void añadirAcompanante(Huesped acompanante) {
+	public void aniadirAcompanante(Huesped acompanante) {
 		this.acompanantes.add(acompanante);
 	}
 
@@ -39,7 +39,7 @@ public class Grupo {
 		this.reserva = reserva;
 	}
 
-	public void añadirAlMonto(Float monto) {
+	public void aniadirAlMonto(Float monto) {
 		reserva.sumarACuotaTotal(monto);
 	}
 
