@@ -9,24 +9,10 @@ import java.util.HashMap;
 
 public class CargadorHabitaciones {
 
-	private HashMap<String, HashMap<Integer, ArrayList<Habitacion>>> mapaHabitaciones;
-	private ArrayList<Habitacion> habitaciones;
-
 	public CargadorHabitaciones() {
-
-		mapaHabitaciones = new HashMap<String, HashMap<Integer, ArrayList<Habitacion>>>();
-		habitaciones = new ArrayList<Habitacion>();
 	}
 
-	public HashMap<String, HashMap<Integer, ArrayList<Habitacion>>> getMapaHabitaciones() {
-		return mapaHabitaciones;
-	}
-
-	public ArrayList<Habitacion> getHabitaciones() {
-		return habitaciones;
-	}
-
-	public void cargarHabitaciones(String rutaArchivo) throws IOException {
+	public void cargarHabitaciones(String rutaArchivo, HashMap<Integer, Habitacion> mapaHabitaciones) throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(new File(rutaArchivo)));
 		String linea = br.readLine();
@@ -41,13 +27,9 @@ public class CargadorHabitaciones {
 			boolean vista = partes[5].equals("si");
 			boolean cocina = partes[6].equals("si");
 
-			Habitacion habitacionActual = new Habitacion(id, capacidad, tipoHabitacion, camas, balcon, vista, cocina);
+			Habitacion habitacionActual = new Habitacion(id, tipoHabitacion, capacidad, camas, balcon, vista, cocina);
 
-			HashMap<Integer, ArrayList<Habitacion>> mapaCapacidades = mapaHabitaciones.computeIfAbsent(tipoHabitacion,
-					k -> new HashMap<>());
-			ArrayList<Habitacion> habitaciones = mapaCapacidades.computeIfAbsent(capacidad, k -> new ArrayList<>());
-			habitaciones.add(habitacionActual);
-			this.habitaciones.add(habitacionActual);
+			mapaHabitaciones.put(id, habitacionActual);
 
 			linea = br.readLine();
 		}

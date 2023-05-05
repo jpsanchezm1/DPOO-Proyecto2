@@ -1,22 +1,23 @@
 package modelo.habitaciones;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-
 import modelo.huespedes.Huesped;
 
 public class Reserva {
 
 	private Huesped representante;
-	private LocalDate fechaInicio;
-	private LocalDate fechaFin;
+	private ArrayList<Huesped> acompanantes;
+	private String fechaInicio;
+	private String fechaFin;
 	private boolean activa;
 	private int cuotaTotal;
-	private ArrayList<Habitacion> habitaciones;
+	private ArrayList<Integer> habitaciones;
 
-	public Reserva(String fechaInicio, String fechaFin) {
-		this.fechaInicio = LocalDate.parse(fechaInicio);
-		this.fechaFin = LocalDate.parse(fechaFin);
+	public Reserva(Huesped representante, String fechaInicio, String fechaFin, ArrayList<Huesped> acompanantes) {
+		this.representante = representante;
+		this.acompanantes = acompanantes;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 		activa = true;
 		cuotaTotal = 0;
 		habitaciones = new ArrayList<>();
@@ -26,15 +27,11 @@ public class Reserva {
 		return representante;
 	}
 
-	public void setRepresentante(Huesped representante) {
-		this.representante = representante;
-	}
-
-	public LocalDate getFechaInicio() {
+	public String getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public LocalDate getFechaFin() {
+	public String getFechaFin() {
 		return fechaFin;
 	}
 
@@ -46,12 +43,16 @@ public class Reserva {
 		this.activa = activa;
 	}
 
-	public ArrayList<Habitacion> getHabitaciones() {
+	public ArrayList<Integer> getHabitaciones() {
 		return habitaciones;
 	}
+	
+	public ArrayList<Huesped> getAcompanantes(){
+		return acompanantes;
+	}
 
-	public void añadirHabitacion(Habitacion habitacion) {
-		this.habitaciones.add(habitacion);
+	public void aniadirHabitacion(int id) {
+		habitaciones.add(id);
 	}
 
 	public int getCuotaTotal() {

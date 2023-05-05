@@ -22,12 +22,12 @@ public class ControladorRegistro {
 		this.grupoActual = grupo;
 	}
 
-	public void añadirAcompanante(String infoAcompanante) {
+	public void aniadirAcompanante(String infoAcompanante) {
 		String[] partes = infoAcompanante.split(";");
 
 		Huesped acompanante = new Huesped(partes[0], Integer.parseInt(partes[1]), Integer.parseInt(partes[2]),
 				partes[3]);
-		this.grupoActual.añadirAcompanante(acompanante);
+		this.grupoActual.aniadirAcompanante(acompanante);
 		acompanante.setGrupo(this.grupoActual);
 		huespedesRegistrados.add(acompanante);
 	}

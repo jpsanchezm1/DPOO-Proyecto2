@@ -5,59 +5,35 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//Se encarga de generar el inventario de habitaciones. Esta clase es usada por el admin.
 public class ControladorHabitaciones {
 
-	private Habitacion habitacionActual;
-	private CargadorHabitaciones cargadorHabitaciones;
+	//private Habitacion habitacionActual;
+	
+	//guardamos por id todas las habitaciones
+	private HashMap<Integer, Habitacion> habitaciones;
 
 	public ControladorHabitaciones() {
 
-		cargadorHabitaciones = new CargadorHabitaciones();
+		habitaciones = new HashMap<>();
 	}
 
 	public void cargarHabitaciones(String rutaArchivo) throws IOException {
-		cargadorHabitaciones.cargarHabitaciones(rutaArchivo);
+		CargadorHabitaciones cargador = new CargadorHabitaciones();
+		cargador.cargarHabitaciones(rutaArchivo, habitaciones);
 	}
-
-	public void consultarHabitacionDisponible(String tipoHabitacion, int capacidad, String SfechaInicio,
-			String SfechaFin) {
-
-		HashMap<String, HashMap<Integer, ArrayList<Habitacion>>> mapaTipos = cargadorHabitaciones.getMapaHabitaciones();
-		HashMap<Integer, ArrayList<Habitacion>> mapaCapacidades = mapaTipos.get(tipoHabitacion);
-		ArrayList<Habitacion> habitaciones = mapaCapacidades.get(capacidad);
-
-		LocalDate fechaInicio = LocalDate.parse(SfechaInicio);
-		LocalDate fechaFin = LocalDate.parse(SfechaFin);
-
-		boolean habitacionHallada = false;
-		Habitacion habDisponible = null;
-		int i = 0;
-		while ((i < habitaciones.size()) && !habitacionHallada) {
-			Habitacion habActual = habitaciones.get(i);
-
-			if (habActual.getReservas().size() == 0) {
-				habDisponible = habActual;
-				habitacionHallada = true;
-			} else {
-				for (Reserva reserva : habActual.getReservas()) {
-					LocalDate inicioReserva = reserva.getFechaInicio();
-					LocalDate finReserva = reserva.getFechaFin();
-
-					if ((fechaInicio.isBefore(inicioReserva) || fechaInicio.isEqual(inicioReserva))
-							|| (fechaFin.isAfter(finReserva) || fechaFin.isEqual(finReserva))) {
-
-						habDisponible = habActual;
-						habitacionHallada = true;
-					}
-				}
-			}
-			i++;
-		}
-		this.habitacionActual = habDisponible;
+	
+	public void crearHabitacion(int id, String tipo, int capacidad, String descripcion, boolean balcon, boolean vista, boolean cocina) {
+		Habitacion nuevaHab = new Habitacion(id, tipo, capacidad, descripcion, balcon, vista, cocina);
+		habitaciones.put(id, nuevaHab);
 	}
-
-	public Habitacion getHabitacionActual() {
-		return habitacionActual;
+	
+	public void actualizarHabitaciones(String rutaArchivo) throws IOException {
+		cargarHabitaciones(rutaArchivo);
+	}
+	
+	public HashMap<Integer, Habitacion> getHabitaciones(){
+		return habitaciones;
 	}
 
 }
