@@ -42,11 +42,4 @@ public class ControladorServicios {
 	public Map<String, Servicio> getMapaServicios() {
 		return mapaServicios;
 	}
-
-	public static void main(String[] args) throws IOException {
-		ControladorServicios c = new ControladorServicios();
-		c.cargarServicios("./archivosEjemplo/servicios.txt");
-		System.out.println(c.consultarServicio("TV").getPrecio());
-		c.guardarRegistros();
-	}
 }
