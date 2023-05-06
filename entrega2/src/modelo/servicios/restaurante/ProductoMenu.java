@@ -1,4 +1,4 @@
-package modelo.servicios;
+package modelo.servicios.restaurante;
 
 import java.time.LocalTime;
 
@@ -6,13 +6,13 @@ public class ProductoMenu {
 
 	private String nombre;
 
-	private float precio;
+	private Float precio;
 
 	private LocalTime horaInicio;
 
 	private LocalTime horaFin;
 
-	private boolean llevableAHabitacion;
+	private Boolean llevableAHabitacion;
 
 	public ProductoMenu(String nombre, float precio, LocalTime horaInicio, LocalTime horaFin,
 			boolean llevableAHabitacion) {
@@ -28,11 +28,7 @@ public class ProductoMenu {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public float getPrecio() {
+	public Float getPrecio() {
 		return precio;
 	}
 
@@ -56,7 +52,7 @@ public class ProductoMenu {
 		this.horaFin = horaFin;
 	}
 
-	public boolean isLlevableAHabitacion() {
+	public Boolean isLlevableAHabitacion() {
 		return llevableAHabitacion;
 	}
 
