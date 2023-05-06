@@ -6,7 +6,6 @@ public class Huesped {
 	private int identificacion;
 	private int numCelular;
 	private String correo;
-	private Grupo grupo;
 
 	public Huesped(String nombre, int identificacion, int numCelular, String correo) {
 		super();
@@ -32,10 +31,6 @@ public class Huesped {
 		return correo;
 	}
 
-	public Grupo getGrupo() {
-		return grupo;
-	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -50,10 +45,6 @@ public class Huesped {
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
-	}
-
-	public void setGrupo(Grupo grupo) {
-		this.grupo = grupo;
 	}
 
 }

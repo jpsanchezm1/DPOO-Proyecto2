@@ -13,7 +13,7 @@ import modelo.huespedes.Huesped;
 //Utiliza el inventario de habitaciones para encargarse de las reservas. Esta clase es usada por el recepcionista.
 public class ControladorReserva {
 
-	private ArrayList<Reserva> reservasActivas;
+	private HashMap<Integer, Reserva> reservasActivas;
 
 	// guardamos las habitaciones que aún no han sido reservadas
 	private Set<Integer> habitacionesDis;
@@ -25,29 +25,31 @@ public class ControladorReserva {
 
 	public ControladorReserva(Map<Integer, Habitacion> inventario) {
 		habitacionesDis = inventario.keySet();
-		reservasActivas = new ArrayList<>();
+		reservasActivas = new HashMap<>();
 		habitacionesRes = new HashMap<>();
 	}
 
-	public void crearReserva(Huesped representante, String fechaInicio, String fechaFin,
-			ArrayList<Huesped> acompanantes) {
+	public void crearReserva(Huesped representante, String fechaInicio, String fechaFin) {
 
-		Reserva reserva = new Reserva(representante, fechaInicio, fechaFin, acompanantes);
-		reservasActivas.add(reserva);
+		Reserva reserva = new Reserva(representante, fechaInicio, fechaFin);
+		reservasActivas.put(representante.getIdentificacion(), reserva);
 
 	}
 
-	public void reservarHabitacion(int idHab, Reserva reserva) {
-		reserva.aniadirHabitacion(idHab);
-		habitacionesDis.remove(idHab);
+	public void reservarHabitaciones(ArrayList<Integer> idsHab, Reserva reserva) {
+		for (Integer idHab : idsHab) {
 
-		String rangoFecha = reserva.getFechaInicio() + ";" + reserva.getFechaFin();
-		if (habitacionesRes.containsKey(idHab)) {
-			habitacionesRes.get(idHab).add(rangoFecha);
-		} else {
-			ArrayList<String> nuevaReservas = new ArrayList<>();
-			nuevaReservas.add(rangoFecha);
-			habitacionesRes.put(idHab, nuevaReservas);
+			reserva.aniadirHabitacion(idHab);
+			habitacionesDis.remove(idHab);
+
+			String rangoFecha = reserva.getFechaInicio() + ";" + reserva.getFechaFin();
+			if (habitacionesRes.containsKey(idHab)) {
+				habitacionesRes.get(idHab).add(rangoFecha);
+			} else {
+				ArrayList<String> nuevaReservas = new ArrayList<>();
+				nuevaReservas.add(rangoFecha);
+				habitacionesRes.put(idHab, nuevaReservas);
+			}
 		}
 	}
 
@@ -86,6 +88,11 @@ public class ControladorReserva {
 			}
 		}
 		return true;
+	}
+	
+	//Recibe la id de un huesped y retorna su reserva activa
+	public Reserva getReservaPorIdHuesped(int id) {
+		return reservasActivas.get(id);
 	}
 }
 

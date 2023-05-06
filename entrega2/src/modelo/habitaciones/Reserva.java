@@ -6,20 +6,16 @@ import modelo.huespedes.Huesped;
 public class Reserva {
 
 	private Huesped representante;
-	private ArrayList<Huesped> acompanantes;
 	private String fechaInicio;
 	private String fechaFin;
 	private boolean activa;
-	private int cuotaTotal;
 	private ArrayList<Integer> habitaciones;
 
-	public Reserva(Huesped representante, String fechaInicio, String fechaFin, ArrayList<Huesped> acompanantes) {
+	public Reserva(Huesped representante, String fechaInicio, String fechaFin) {
 		this.representante = representante;
-		this.acompanantes = acompanantes;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		activa = true;
-		cuotaTotal = 0;
 		habitaciones = new ArrayList<>();
 	}
 
@@ -46,21 +42,9 @@ public class Reserva {
 	public ArrayList<Integer> getHabitaciones() {
 		return habitaciones;
 	}
-	
-	public ArrayList<Huesped> getAcompanantes(){
-		return acompanantes;
-	}
 
 	public void aniadirHabitacion(int id) {
 		habitaciones.add(id);
-	}
-
-	public int getCuotaTotal() {
-		return cuotaTotal;
-	}
-
-	public void sumarACuotaTotal(Float float1) {
-		this.cuotaTotal += float1;
 	}
 
 	public void checkOut() {
