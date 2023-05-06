@@ -38,7 +38,8 @@ public class CargadorRestaurante {
 	}
 
 	public void cargarMenu(String rutaArchivoPlatos, String rutaArchivoBebidas,
-			Map<String, Map<String, ProductoMenu>> menu) throws IOException {
+			Map<String, Map<String, ProductoMenu>> menu) throws IOException { 
+		// el mapa menu está compuesto por categoría = { nombreProducto: Producto} 
 		cargarProductos("platos", rutaArchivoPlatos, menu);
 		cargarProductos("bebidas", rutaArchivoBebidas, menu);
 	}

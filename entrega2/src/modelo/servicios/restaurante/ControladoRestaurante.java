@@ -8,6 +8,7 @@ import java.util.Map;
 public class ControladoRestaurante {
 
 	private Map<String, Map<String, ProductoMenu>> menu = new HashMap<>();
+	// el mapa menu está compuesto por categoría = { nombreProducto: Producto} 
 
 	private String archivoPlatos = "./data/servicios/menuRestaurante/platos.txt";
 

@@ -45,6 +45,7 @@ public class EditorRestaurante {
 
 	public void guardarRegistros(Map<String, Map<String, ProductoMenu>> menu, String archivoBebidas,
 			String archivoPlatos) throws IOException {
+		// el mapa menu está compuesto por categoría = { nombreProducto: Producto} 
 		for (String categoria : menu.keySet()) {
 			String archivoBase = (categoria.equals("bebidas")) ? archivoBebidas : archivoPlatos;
 			for (ProductoMenu producto : menu.get(categoria).values()) {
