@@ -4,7 +4,7 @@ public class Servicio {
 
 	private String nombre;
 
-	private float precio;
+	private Float precio;
 
 	public Servicio(String nombre, float precio) {
 		super();
@@ -21,11 +21,7 @@ public class Servicio {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public float getPrecio() {
+	public Float getPrecio() {
 		return precio;
 	}
 
