@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import modelo.huespedes.Huesped;
-import modelo.servicios.ProductoMenu;
+import modelo.servicios.restaurante.ProductoMenu;
 
 public class ConsumoRestaurante {
 
@@ -15,7 +15,7 @@ public class ConsumoRestaurante {
 
 	private ProductoMenu productoMenu;
 
-	private boolean pago;
+	private Boolean pago;
 
 	public ConsumoRestaurante(Huesped huesped, ProductoMenu productoMenu, boolean pago) {
 		super();
@@ -37,7 +37,7 @@ public class ConsumoRestaurante {
 		return productoMenu;
 	}
 
-	public boolean getPago() {
+	public Boolean getPago() {
 		return pago;
 	}
 

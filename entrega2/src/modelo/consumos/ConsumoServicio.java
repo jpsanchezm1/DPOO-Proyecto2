@@ -9,7 +9,7 @@ public class ConsumoServicio {
 
 	private Servicio servicio;
 
-	private boolean pago;
+	private Boolean pago;
 
 	public ConsumoServicio(Huesped huesped, Servicio servicio, boolean pago) {
 		this.huesped = huesped;
@@ -30,7 +30,7 @@ public class ConsumoServicio {
 		return servicio;
 	}
 
-	public boolean getPago() {
+	public Boolean getPago() {
 		return pago;
 	}
 

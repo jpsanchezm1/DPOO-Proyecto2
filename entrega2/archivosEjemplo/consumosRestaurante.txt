@@ -1,3 +1,3 @@
-John Lopez;Arroz-con-pollo;si
-Sara Lopez;Limonada-1L;no
-Diego Lopez;Hamburguesa-sencilla;no
+John Lopez;Arroz-con-pollo;true
+Sara Lopez;Limonada-1L;false
+Diego Lopez;Hamburguesa-sencilla;false
