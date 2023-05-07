@@ -4,9 +4,6 @@ import javax.swing.JFrame;
 
 public class InterfazPMS extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Inicio panelInicio;
@@ -18,7 +15,7 @@ public class InterfazPMS extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		panelInicio = new Inicio();
+		panelInicio = new Inicio(this);
 		
 		add(panelInicio);
 	}
