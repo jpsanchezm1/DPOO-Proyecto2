@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ControladoRestaurante {
+public class ControladorRestaurante {
 
 	private Map<String, Map<String, ProductoMenu>> menu = new HashMap<>();
 	// el mapa menu está compuesto por categoría = { nombreProducto: Producto} 
@@ -14,7 +14,7 @@ public class ControladoRestaurante {
 
 	private String archivoBebidas = "./data/servicios/menuRestaurante/bebidas.txt";
 
-	public ControladoRestaurante() throws IOException{
+	public ControladorRestaurante() throws IOException{
 		recuperarInformacion();
 	}
 
