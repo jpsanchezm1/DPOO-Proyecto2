@@ -9,19 +9,21 @@ import java.util.Set;
 import modelo.utilidades.Utilidades;
 
 public class CalendarioTarifasHab {
-	
-	//guardamos el precio de las tarifas por tipo de habitacion, luego por rango de fechas en el que actua y luego por dia de la semana
+
+	// guardamos el precio de las tarifas por tipo de habitacion, luego por rango de
+	// fechas en el que actua y luego por dia de la semana
 	private Map<String, Map<String, Map<String, Float>>> calendarioTarifas;
-	
+
 	public CalendarioTarifasHab() {
 		calendarioTarifas = new HashMap<>();
 	}
-	
-	public Map<String, Map<String, Map<String, Float>>> getMapaCalendario(){
+
+	public Map<String, Map<String, Map<String, Float>>> getMapaCalendario() {
 		return calendarioTarifas;
 	}
-	
-	//Recibe el tipo de habitacion y la fecha y retorna el precio de la tarifa que aplica
+
+	// Recibe el tipo de habitacion y la fecha y retorna el precio de la tarifa que
+	// aplica
 	public Float consultarTarifaHabitacion(String tipoHabitacion, String fechaString) {
 		Map<String, Map<String, Float>> mapaTarifas = calendarioTarifas.get(tipoHabitacion);
 		Set<String> rangos = mapaTarifas.keySet();
