@@ -1,9 +1,8 @@
-package consola;
+package consola.inicio;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -14,23 +13,28 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class PanelFormulario extends JPanel {
+public class PanelFormularioRegistro extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private static final String CREAR_CUENTA = "Crear cuenta";
-	private static final String INICIAR_SESION = "Iniciar sesion";
-	private JTextField textField1;
+	private static final String REGISTRAR = "Registrar";
+	private JTextField usuarioTextField, rolTextField;
 	private JPasswordField passwordField;
-	private JButton bCrearCuenta;
-	private JButton bInicio;
-	private JPanel panelLinea;
-
-	public PanelFormulario() {
+	private JButton bRegistrar;
+	private JLabel titleJLabel;
+	
+	public PanelFormularioRegistro() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBackground(Color.WHITE);
-		setPreferredSize(new Dimension(280, 220));
+		setPreferredSize(new Dimension(300, 300));
 		setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
-
+		
+		add(Box.createRigidArea(new Dimension(40, 30)));
+		
+		JPanel titlePanel = new JPanel(new BorderLayout());
+		titleJLabel = new JLabel("Crear Cuenta");
+		titlePanel.add(titleJLabel, BorderLayout.CENTER);
+		add(titlePanel);
+		
 		add(Box.createRigidArea(new Dimension(40, 30)));
 		
 		JPanel usuarioPanel = new JPanel(new BorderLayout());
@@ -39,10 +43,23 @@ public class PanelFormulario extends JPanel {
 		add(usuarioPanel);
 		
 		add(Box.createRigidArea(new Dimension(40, 10)));
-
-		textField1 = new JTextField();
-		textField1.setPreferredSize(new Dimension(80, 30));
-		add(textField1);
+		
+		usuarioTextField = new JTextField();
+		usuarioTextField.setPreferredSize(new Dimension(80, 30));
+		add(usuarioTextField);
+		
+		add(Box.createRigidArea(new Dimension(40, 10)));
+		
+		JPanel rolPanel = new JPanel(new BorderLayout());
+		JLabel lrol = new JLabel("Rol: ");
+		rolPanel.add(lrol, BorderLayout.WEST);
+		add(rolPanel);
+		
+		add(Box.createRigidArea(new Dimension(40, 10)));
+		
+		rolTextField = new JTextField();
+		rolTextField.setPreferredSize(new Dimension(80, 30));
+		add(rolTextField);
 		
 		add(Box.createRigidArea(new Dimension(40, 10)));
 		
@@ -52,42 +69,36 @@ public class PanelFormulario extends JPanel {
 		add(contraseniaPanel);
 
 		add(Box.createRigidArea(new Dimension(40, 10)));
-
+		
 		passwordField = new JPasswordField();
 		passwordField.setEchoChar('•');
 		passwordField.setPreferredSize(new Dimension(40, 30));
 		add(passwordField);
 
 		add(Box.createRigidArea(new Dimension(40, 35)));
-
-		bInicio = new JButton(INICIAR_SESION);
-		bInicio.setPreferredSize(new Dimension(100, 40));
-		bInicio.setAlignmentX(CENTER_ALIGNMENT);
-		add(bInicio);
-
-		add(Box.createRigidArea(new Dimension(40, 30)));
-
-		panelLinea = new JPanel() {
-
-			private static final long serialVersionUID = 1L;
-
-			public void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				g.setColor(Color.darkGray);
-				g.drawLine(0, 0, getWidth(), 0);
-			}
-		};
-		panelLinea.setPreferredSize(new Dimension(0, 1));
-		panelLinea.setAlignmentX(CENTER_ALIGNMENT);
-		add(panelLinea);
-
-		add(Box.createRigidArea(new Dimension(40, 30)));
-
-		bCrearCuenta = new JButton(CREAR_CUENTA);
-		bCrearCuenta.setPreferredSize(new Dimension(100, 40));
-		bCrearCuenta.setAlignmentX(CENTER_ALIGNMENT);
-		add(bCrearCuenta);
+		
+		bRegistrar = new JButton(REGISTRAR);
+		bRegistrar.setPreferredSize(new Dimension(100, 40));
+		bRegistrar.setAlignmentX(CENTER_ALIGNMENT);
+		add(bRegistrar);
 
 		add(Box.createRigidArea(new Dimension(40, 30)));
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

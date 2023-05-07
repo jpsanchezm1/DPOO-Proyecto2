@@ -4,16 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Inicio extends JPanel {
+import consola.InterfazPMS;
+
+public class Inicio extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private InterfazPMS principalInterfazPMS;
+	private static final String CREAR_CUENTA = "Crear cuenta";
 
 	public Inicio(InterfazPMS p) {
 
@@ -50,7 +55,7 @@ public class Inicio extends JPanel {
 		panelCentro.setPreferredSize(new Dimension(320, 340));
 		panelCentro.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 
-		JPanel panelForm = new PanelFormulario();
+		JPanel panelForm = new PanelFormulario(this);
 
 		panelCentro.add(panelForm, BorderLayout.CENTER);
 
@@ -60,7 +65,15 @@ public class Inicio extends JPanel {
 
 		setVisible(true);
 	}
-	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String comando = e.getActionCommand();
+
+		if (comando.equals(CREAR_CUENTA)) {
+			principalInterfazPMS.mostrarPanelRegistro();
+		}
+	}
 	
 
 }
