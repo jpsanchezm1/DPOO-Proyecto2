@@ -11,7 +11,7 @@ public class CargadorHabitaciones {
 			throws IOException {
 
 		try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
-			;
+
 			String linea = br.readLine();
 
 			while (linea != null) {
