@@ -1,26 +1,34 @@
 package modelo.habitaciones;
 
 import java.util.ArrayList;
-import modelo.huespedes.Huesped;
 
 public class Reserva {
 
-	private Huesped representante;
+	private int idRepresentante;
 	private String fechaInicio;
 	private String fechaFin;
 	private boolean activa;
 	private ArrayList<Integer> habitaciones;
 
-	public Reserva(Huesped representante, String fechaInicio, String fechaFin) {
-		this.representante = representante;
+	public Reserva(int representante, String fechaInicio, String fechaFin) {
+		this.idRepresentante = representante;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		activa = true;
 		habitaciones = new ArrayList<>();
 	}
 
-	public Huesped getRepresentante() {
-		return representante;
+	public Reserva(int representante, String fechaInicio, String fechaFin, boolean activa,
+			ArrayList<Integer> habitaciones) {
+		this.idRepresentante = representante;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.activa = activa;
+		this.habitaciones = habitaciones;
+	}
+
+	public int getRepresentante() {
+		return idRepresentante;
 	}
 
 	public String getFechaInicio() {
@@ -46,8 +54,4 @@ public class Reserva {
 	public void aniadirHabitacion(int id) {
 		habitaciones.add(id);
 	}
-
-	public void checkOut() {
-	}
-
 }
