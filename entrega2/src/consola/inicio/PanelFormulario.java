@@ -24,12 +24,15 @@ public class PanelFormulario extends JPanel {
 	private JButton bCrearCuenta;
 	private JButton bInicio;
 	private JPanel panelLinea;
+	private Inicio padreInicio;
 
-	public PanelFormulario() {
+	public PanelFormulario(Inicio padreIncio) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(280, 220));
 		setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
+		
+		this.padreInicio = padreIncio;
 
 		add(Box.createRigidArea(new Dimension(40, 30)));
 		
@@ -86,8 +89,13 @@ public class PanelFormulario extends JPanel {
 		bCrearCuenta = new JButton(CREAR_CUENTA);
 		bCrearCuenta.setPreferredSize(new Dimension(100, 40));
 		bCrearCuenta.setAlignmentX(CENTER_ALIGNMENT);
+		bCrearCuenta.addActionListener(this.padreInicio);
 		add(bCrearCuenta);
 
 		add(Box.createRigidArea(new Dimension(40, 30)));
+		
+		setVisible(true);
 	}
+	
+	
 }
