@@ -16,7 +16,7 @@ public class Grupo {
 	public Huesped getRepresentante() {
 		return representante;
 	}
-	
+
 	public int getCuotaTotal() {
 		return cuotaTotal;
 	}

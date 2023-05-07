@@ -29,6 +29,7 @@ public class Inicio extends JPanel {
 		panelNorte.setBackground(Color.darkGray);
 		panelNorte.setPreferredSize(new Dimension(800, 80));
 
+
 		// Panel oeste
 		JPanel panelImagen = new JPanel(new GridBagLayout());
 		panelImagen.setBackground(Color.darkGray);
@@ -38,10 +39,13 @@ public class Inicio extends JPanel {
 		panelOeste.setLayout(new GridBagLayout());
 		panelOeste.add(panelImagen);
 
+
 		ImageIcon logoIcon = new ImageIcon("./data/logoApp/IMG-0410.jpg");
 		JLabel etiquetaImagen = new JLabel(logoIcon);
 		etiquetaImagen.setPreferredSize(new Dimension(300, 300));
+
 		panelImagen.add(etiquetaImagen);
+
 
 		// Panel centro
 		JPanel panelCentro = new JPanel(new BorderLayout());
@@ -51,6 +55,7 @@ public class Inicio extends JPanel {
 		panelCentro.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 
 		// Crear un panel adicional para el formulario
+
 		JPanel panelForm = new PanelFormulario();
 
 		// Agregar los paneles al panel central
@@ -59,6 +64,7 @@ public class Inicio extends JPanel {
 		add(panelNorte, BorderLayout.NORTH);
 		add(panelOeste, BorderLayout.WEST);
 		add(panelCentro, BorderLayout.CENTER);
+
 
 		setVisible(true);
 	}

@@ -1,5 +1,6 @@
 package modelo.habitaciones;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,11 +9,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import modelo.huespedes.Huesped;
-
 //Utiliza el inventario de habitaciones para encargarse de las reservas. Esta clase es usada por el recepcionista.
 public class ControladorReserva {
 
+	// guardamos las reservas activas por id del representante
 	private HashMap<Integer, Reserva> reservasActivas;
 
 	// guardamos las habitaciones que aún no han sido reservadas
@@ -23,16 +23,22 @@ public class ControladorReserva {
 	// los rangos son de la forma fechaInicio;fechaFin
 	private HashMap<Integer, ArrayList<String>> habitacionesRes;
 
-	public ControladorReserva(Map<Integer, Habitacion> inventario) {
+	private String archivoReservas = "./data/reservas/reservas.txt";
+
+	public ControladorReserva(Map<Integer, Habitacion> inventario) throws IOException {
 		habitacionesDis = inventario.keySet();
 		reservasActivas = new HashMap<>();
 		habitacionesRes = new HashMap<>();
+		recuperarInformacion();
 	}
 
-	public void crearReserva(Huesped representante, String fechaInicio, String fechaFin) {
+	public void crearReserva(int idRepresentante, String fechaInicio, String fechaFin) {
 
-		Reserva reserva = new Reserva(representante, fechaInicio, fechaFin);
-		reservasActivas.put(representante.getIdentificacion(), reserva);
+		Reserva reserva = new Reserva(idRepresentante, fechaInicio, fechaFin);
+		reservasActivas.put(idRepresentante, reserva);
+
+		EditorReservas editorReservas = new EditorReservas();
+		editorReservas.guardarReserva(idRepresentante, reserva, archivoReservas);
 
 	}
 
@@ -89,10 +95,19 @@ public class ControladorReserva {
 		}
 		return true;
 	}
-	
-	//Recibe la id de un huesped y retorna su reserva activa
+
+	// Recibe la id de un huesped y retorna su reserva activa
 	public Reserva getReservaPorIdHuesped(int id) {
 		return reservasActivas.get(id);
 	}
-}
 
+	private void recuperarInformacion() throws IOException {
+		CargadorReservas cargadorReservas = new CargadorReservas();
+		cargadorReservas.cargarReservas(archivoReservas, reservasActivas);
+
+		for (Reserva reserva : reservasActivas.values()) {
+			reservarHabitaciones(reserva.getHabitaciones(), reserva);
+		}
+	}
+
+}
