@@ -1,4 +1,4 @@
-package consola;
+package consola.inicio;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -50,10 +50,8 @@ public class Inicio extends JPanel {
 		panelCentro.setPreferredSize(new Dimension(320, 340));
 		panelCentro.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 
-		// Crear un panel adicional para el formulario
 		JPanel panelForm = new PanelFormulario();
 
-		// Agregar los paneles al panel central
 		panelCentro.add(panelForm, BorderLayout.CENTER);
 
 		add(panelNorte, BorderLayout.NORTH);
@@ -62,5 +60,7 @@ public class Inicio extends JPanel {
 
 		setVisible(true);
 	}
+	
+	
 
 }

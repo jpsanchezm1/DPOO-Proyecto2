@@ -1,4 +1,4 @@
-package consola;
+package consola.inicio;
 
 import javax.swing.JFrame;
 
