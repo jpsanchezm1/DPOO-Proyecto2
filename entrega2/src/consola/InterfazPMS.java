@@ -89,4 +89,8 @@ public class InterfazPMS extends JFrame {
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	public void registrarConsumo(String categoria,String id,String referencia, String pago) {
+		coordinadorEmpleado.registrarConsumo(categoria, id, referencia, pago);
+	}
 }
