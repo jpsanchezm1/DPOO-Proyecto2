@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import modelo.huespedes.ControladorRegistro;
 import modelo.huespedes.Huesped;
 import modelo.servicios.restaurante.ProductoMenu;
 import modelo.servicios.Servicio;
@@ -16,41 +17,52 @@ public class ControladorConsumos {
 
 	private String archivoConsumosRest = "./data/consumos/consumosRestaurante.txt";
 
-	private Map<String, List<ConsumoServicio>> mapaConsumosServicios = new HashMap<>();
+	private Map<Integer, List<ConsumoServicio>> mapaConsumosServicios = new HashMap<>(); // id representante: consumos
 
-	private Map<String, List<ConsumoRestaurante>> mapaConsumosRest = new HashMap<>();
+	private Map<Integer, List<ConsumoRestaurante>> mapaConsumosRest = new HashMap<>(); // id representante: consumos
 
-	public ControladorConsumos(Map<String, Huesped> mapaHuespedes, Map<String, ProductoMenu> mapaProductosMenu,
+	private ControladorRegistro controladorRegistro;
+
+	private Map<String, ProductoMenu> mapaProductosMenu;
+
+	private Map<String, Servicio> mapaServicios;
+
+	public ControladorConsumos(ControladorRegistro controladorRegistro, Map<String, ProductoMenu> mapaProductosMenu,
 			Map<String, Servicio> mapaServicios) throws IOException {
-		recuperarInformacion(mapaHuespedes, mapaServicios, mapaProductosMenu);
+		this.controladorRegistro = controladorRegistro;
+		this.mapaProductosMenu = mapaProductosMenu;
+		this.mapaServicios = mapaServicios;
+		recuperarInformacion();
 	}
 
-	public void crearConsumoServicio(String huespedString, String servicioString, String pagoString,
-			Map<String, Huesped> mapaHuespedes, Map<String, Servicio> mapaServicios) {
-		Huesped huesped = mapaHuespedes.get(huespedString);
-		String representante = huesped.getGrupo().getRepresentante().getNombre();
+	public void crearConsumoServicio(String idHuesped, String servicioString, ControladorRegistro controladorRegistro,
+			Map<String, Servicio> mapaServicios) {
+		Huesped huesped = controladorRegistro.getHuespedPorId(Integer.parseInt(idHuesped));
+		Integer id = controladorRegistro.getGrupoPorId(Integer.parseInt(idHuesped)).getRepresentante()
+				.getIdentificacion();
 		Servicio servicio = mapaServicios.get(servicioString);
-		ConsumoServicio consumo = new ConsumoServicio(huesped, servicio, Boolean.parseBoolean(pagoString));
-		mapaConsumosServicios.computeIfAbsent(representante, k -> new ArrayList<>());
-		mapaConsumosServicios.get(representante).add(consumo);
+		ConsumoServicio consumo = new ConsumoServicio(huesped, servicio);
+		mapaConsumosServicios.computeIfAbsent(id, k -> new ArrayList<>());
+		mapaConsumosServicios.get(id).add(consumo);
 	}
 
-	public void crearConsumoRest(String huespedString, String productoMenu, String pagoString,
-			Map<String, Huesped> mapaHuespedes, Map<String, ProductoMenu> mapaProductosMenu) {
-		Huesped huesped = mapaHuespedes.get(huespedString);
-		String representante = huesped.getGrupo().getRepresentante().getNombre();
+	public void crearConsumoRest(String idHuesped, String productoMenu, ControladorRegistro controladorRegistro,
+			Map<String, ProductoMenu> mapaProductosMenu) {
+		Huesped huesped = controladorRegistro.getHuespedPorId(Integer.parseInt(idHuesped));
+		Integer id = controladorRegistro.getGrupoPorId(Integer.parseInt(idHuesped)).getRepresentante()
+				.getIdentificacion();
 		ProductoMenu producto = mapaProductosMenu.get(productoMenu);
-		ConsumoRestaurante consumo = new ConsumoRestaurante(huesped, producto, Boolean.parseBoolean(pagoString));
-		mapaConsumosRest.computeIfAbsent(representante, k -> new ArrayList<>());
-		mapaConsumosRest.get(representante).add(consumo);
+		ConsumoRestaurante consumo = new ConsumoRestaurante(huesped, producto);
+		mapaConsumosRest.computeIfAbsent(id, k -> new ArrayList<>());
+		mapaConsumosRest.get(id).add(consumo);
 	}
 
-	public List<ConsumoServicio> getConsumosServicio(String huespedRepresentante) {
-		return mapaConsumosServicios.get(huespedRepresentante);
+	public List<ConsumoServicio> getConsumosServicio(Integer idRepresentante) {
+		return mapaConsumosServicios.get(idRepresentante);
 	}
 
-	public List<ConsumoRestaurante> getConsumosRestaurante(String huespedRepresentante) {
-		return mapaConsumosRest.get(huespedRepresentante);
+	public List<ConsumoRestaurante> getConsumosRestaurante(Integer idRepresentante) {
+		return mapaConsumosRest.get(idRepresentante);
 	}
 
 	public void guardarRegistros() throws IOException {
@@ -59,10 +71,9 @@ public class ControladorConsumos {
 				mapaConsumosRest);
 	}
 
-	private void recuperarInformacion(Map<String, Huesped> mapaHuespedes, Map<String, Servicio> mapaServicios,
-			Map<String, ProductoMenu> mapaProductosMenu) throws IOException {
+	private void recuperarInformacion() throws IOException {
 		CargadorConsumos cargadorConsumos = new CargadorConsumos();
 		cargadorConsumos.cargarConsumos(archivoConsumosServicios, archivoConsumosRest, mapaConsumosServicios,
-				mapaConsumosRest, mapaHuespedes, mapaServicios, mapaProductosMenu);
+				mapaConsumosRest, controladorRegistro, mapaServicios, mapaProductosMenu);
 	}
 }

@@ -7,28 +7,27 @@ import java.util.List;
 import java.util.Map;
 
 public class EditorConsumos {
-	public void registrarConsumo(String rutaArchivo, String huesped, String referencia, String pago)
-			throws IOException {
+	public void registrarConsumo(String rutaArchivo, String idRepresentante, String referencia) throws IOException {
 		BufferedWriter editor = new BufferedWriter(new FileWriter(rutaArchivo, true));
-		String registro = (huesped + referencia + pago);
+		String registro = (idRepresentante + ";" + referencia);
 		editor.write(registro);
 		editor.newLine();
 		editor.close();
 	}
 
 	public void guardarRegistros(String archivoConsumosServicios, String archivoConsumosRest,
-			Map<String, List<ConsumoServicio>> mapaConsumosServicios,
-			Map<String, List<ConsumoRestaurante>> mapaConsumosRestaurante) throws IOException {
-		for (String huesped : mapaConsumosServicios.keySet()) {
-			for (ConsumoServicio consumo : mapaConsumosServicios.get(huesped)) {
-				registrarConsumo(archivoConsumosServicios, consumo.getHuesped().getNombre(),
-						consumo.getServicio().getNombre(), consumo.getPago().toString());
+			Map<Integer, List<ConsumoServicio>> mapaConsumosServicios,
+			Map<Integer, List<ConsumoRestaurante>> mapaConsumosRestaurante) throws IOException {
+		for (Integer idRepresentante : mapaConsumosServicios.keySet()) {
+			for (ConsumoServicio consumo : mapaConsumosServicios.get(idRepresentante)) {
+				registrarConsumo(archivoConsumosServicios, consumo.getHuesped().getIdentificacion().toString(),
+						consumo.getServicio().getNombre());
 			}
 		}
-		for (String huesped : mapaConsumosRestaurante.keySet()) {
-			for (ConsumoRestaurante consumo : mapaConsumosRestaurante.get(huesped)) {
-				registrarConsumo(archivoConsumosRest, consumo.getHuesped().getNombre(),
-						consumo.getProductoMenu().getNombre(), consumo.getPago().toString());
+		for (Integer idRepresentante : mapaConsumosRestaurante.keySet()) {
+			for (ConsumoRestaurante consumo : mapaConsumosRestaurante.get(idRepresentante)) {
+				registrarConsumo(archivoConsumosRest, consumo.getHuesped().getIdentificacion().toString(),
+						consumo.getProductoMenu().getNombre());
 			}
 		}
 	}
