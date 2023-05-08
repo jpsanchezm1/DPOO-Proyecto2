@@ -9,17 +9,9 @@ public class ConsumoServicio {
 
 	private Servicio servicio;
 
-	private boolean pago;
-
-	public ConsumoServicio(Huesped huesped, Servicio servicio, boolean pago) {
+	public ConsumoServicio(Huesped huesped, Servicio servicio) {
 		this.huesped = huesped;
 		this.servicio = servicio;
-		this.pago = pago;
-		if (this.pago) {
-			pagarConsumo();
-		} else {
-			anadirPagoAReserva();
-		}
 	}
 
 	public Huesped getHuesped() {
@@ -30,21 +22,7 @@ public class ConsumoServicio {
 		return servicio;
 	}
 
-	public boolean getPago() {
-		return pago;
-	}
-
 	public Float getPrecio() {
 		return servicio.getPrecio();
-	}
-
-	private void anadirPagoAReserva() {
-		this.huesped.getGrupo().añadirAlMonto(this.getPrecio());
-	}
-
-	public void pagarConsumo() {
-		if (!pago) {
-			Pago pagoConsumo = new Pago(huesped, getPrecio(), getServicio().getNombre());
-		}
 	}
 }

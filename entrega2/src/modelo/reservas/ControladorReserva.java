@@ -1,4 +1,4 @@
-package modelo.habitaciones;
+package modelo.reservas;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -9,13 +9,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import modelo.habitaciones.Habitacion;
+
 //Utiliza el inventario de habitaciones para encargarse de las reservas. Esta clase es usada por el recepcionista.
 public class ControladorReserva {
 
 	// guardamos las reservas activas por id del representante
 	private HashMap<Integer, Reserva> reservasActivas;
 
-	// guardamos las habitaciones que aún no han sido reservadas
+	// guardamos las habitaciones que aï¿½n no han sido reservadas
 	private Set<Integer> habitacionesDis;
 
 	// guardamos las habitaciones reservadas por id. Los valores son los rangos de

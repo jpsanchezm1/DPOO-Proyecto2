@@ -1,4 +1,4 @@
-package modelo.habitaciones;
+package modelo.reservas;
 
 import java.util.ArrayList;
 

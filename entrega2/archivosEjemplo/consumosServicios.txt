@@ -1,3 +1,3 @@
-John Lopez;TV;si
-Sara Lopez;Basket;no
-Diego Lopez;Basket;no
+John Lopez;TV
+Sara Lopez;Basket
+Diego Lopez;Basket
