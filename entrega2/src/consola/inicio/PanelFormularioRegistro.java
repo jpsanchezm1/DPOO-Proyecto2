@@ -71,7 +71,7 @@ public class PanelFormularioRegistro extends JPanel{
 		add(Box.createRigidArea(new Dimension(40, 10)));
 		
 		passwordField = new JPasswordField();
-		passwordField.setEchoChar('â€¢');
+		passwordField.setEchoChar('â');
 		passwordField.setPreferredSize(new Dimension(40, 30));
 		add(passwordField);
 
