@@ -24,7 +24,7 @@ public class Autenticador {
 
 	public void registrarUsuario(String rol, String nombreUsuario, String contrasena) throws IOException {
 
-		if (rol == "administrador") {
+		if (rol.equals("administrador")) {
 			String linea = nombreUsuario + ";" + contrasena;
 			File archivoAdministradores = new File(rutaArchivoAdministradores);
 			FileWriter fw = new FileWriter(archivoAdministradores, true);
@@ -34,9 +34,9 @@ public class Autenticador {
 			bw.newLine();
 
 			bw.close();
-
 			mapaAdministradores.put(nombreUsuario, contrasena);
-		} else if (rol == "recepcionista") {
+			
+		} else if (rol.equals("recepcionista")) {
 			String linea = nombreUsuario + ";" + contrasena;
 			File archivoRecepcionistas = new File(rutaArchivoRecepcionistas);
 			FileWriter fw = new FileWriter(archivoRecepcionistas, true);
@@ -47,7 +47,8 @@ public class Autenticador {
 			bw.close();
 
 			mapaRecepcionistas.put(nombreUsuario, contrasena);
-		} else if (rol == "empleadoGeneral") {
+			
+		} else if (rol.equals("empleadoGeneral")) {
 			String linea = nombreUsuario + ";" + contrasena;
 			File archivoEmpleadoGeneral = new File(rutaArchivoEmpleadosGenerales);
 			FileWriter fw = new FileWriter(archivoEmpleadoGeneral, true);
@@ -64,7 +65,7 @@ public class Autenticador {
 
 		boolean existe = false;
 
-		if (rol == "administrador") {
+		if (rol.equals("administrador")) {
 
 			String password = mapaAdministradores.get(nombreUsuario);
 			boolean match = password.equals(contrasena);
@@ -74,7 +75,7 @@ public class Autenticador {
 			} else {
 				existe = false;
 			}
-		} else if (rol == "recepcionista") {
+		} else if (rol.equals("recepcionista")) {
 			String password = mapaRecepcionistas.get(nombreUsuario);
 			boolean match = password.equals(contrasena);
 
@@ -83,7 +84,7 @@ public class Autenticador {
 			} else {
 				return false;
 			}
-		} else if (rol == "empleadoGeneral") {
+		} else if (rol.equals("empleadoGeneral")) {
 			String password = mapaEmpleadoGeneral.get(nombreUsuario);
 			boolean match = password.equals(contrasena);
 
@@ -100,7 +101,7 @@ public class Autenticador {
 
 		boolean existe = false;
 
-		if (rol == "administrador") {
+		if (rol.equals("administrador")) {
 			boolean vacio = mapaAdministradores.isEmpty();
 			if (vacio == false) {
 				if (mapaAdministradores.containsKey(nombreUsuario)) {
@@ -108,14 +109,14 @@ public class Autenticador {
 				}
 			}
 
-		} else if (rol == "recepcionista") {
+		} else if (rol.equals("recepcionista")) {
 			boolean vacio = mapaRecepcionistas.isEmpty();
 			if (vacio == false) {
 				if (mapaRecepcionistas.containsKey(nombreUsuario)) {
 					existe = true;
 				}
 			}
-		} else if (rol == "empleadoGeneral") {
+		} else if (rol.equals("empleadoGeneral")) {
 			boolean vacio = mapaEmpleadoGeneral.isEmpty();
 			if (vacio == false) {
 				if (mapaEmpleadoGeneral.containsKey(nombreUsuario)) {
