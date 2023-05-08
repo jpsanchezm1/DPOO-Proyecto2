@@ -40,14 +40,9 @@ public class InterfazRecepcion extends JFrame {
 		dialogReservar.setSize(700, 600);
 		dialogReservar.setLocationRelativeTo(null);
 
-		// Configuración del layout
+		// Configuraciï¿½n del layout
 		// setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-	}
-
-	public static void main(String[] args) {
-		InterfazRecepcion interfaz = new InterfazRecepcion();
-		interfaz.setVisible(true);
 	}
 
 	public void mostrarPanelReservar() {

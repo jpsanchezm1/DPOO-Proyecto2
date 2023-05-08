@@ -6,8 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import consola.administracion.InterfazAdministracion;
+import consola.empleado.InterfazEmpleado;
 import consola.inicio.Inicio;
 import consola.inicio.Registro;
+import coordinadores.CoordinadorAdministrador;
+import coordinadores.CoordinadorEmpleado;
+import coordinadores.CoordinadorRecepcion;
 import modelo.autenticador.Autenticador;
 
 public class InterfazPMS extends JFrame {
@@ -16,10 +20,19 @@ public class InterfazPMS extends JFrame {
 
 	private Inicio panelInicio;
 	private Registro panelRegistro;
-
+	private InterfazEmpleado interfazEmpleado;
 	private Autenticador autenticador = new Autenticador();
+	private CoordinadorAdministrador coordinadorAdministrador = new CoordinadorAdministrador();
+	private CoordinadorRecepcion coordinadorRecepcion = new CoordinadorRecepcion();
+	private CoordinadorEmpleado coordinadorEmpleado;
 
 	public InterfazPMS() throws IOException {
+
+		this.coordinadorEmpleado = new CoordinadorEmpleado(coordinadorRecepcion.getControladorHuespedes(),
+				coordinadorRecepcion.getControladorPagos(), coordinadorAdministrador.mapaServicios(),
+				coordinadorAdministrador.mapaProductosMenu());
+
+		this.interfazEmpleado = new InterfazEmpleado(this);
 
 		setTitle("Property Managament System");
 		setSize(700, 600);
@@ -45,30 +58,35 @@ public class InterfazPMS extends JFrame {
 
 	public void registrarUsuario(String rol, String nombreUsuario, String contrasena) throws IOException {
 		autenticador.registrarUsuario(rol, nombreUsuario, contrasena);
+		if (rol.equals("empleado")) {
+			dispose();
+			interfazEmpleado.setVisible(true);
+		}
 	}
 
 	public void iniciarSesion(String rol, String usuario, String contrasenia) throws IOException {
-		
+
 		boolean validarUsuario = autenticador.validarUsuario(rol, usuario);
 		boolean validarContrasena = autenticador.validarContrasena(rol, usuario, contrasenia);
-		
-		if (validarContrasena && validarUsuario ) {
-			
+
+		if (validarContrasena && validarUsuario) {
+
 			if (rol.equals("administrador")) {
-				
+
 				dispose();
 				InterfazAdministracion interfazAdmin = new InterfazAdministracion();
 				interfazAdmin.setVisible(true);
-				
+
 			} else if (rol.equals("recepcionista")) {
-				
-			} else if (rol.equals("empleadoGeneral")) {
-				
+
+			} else if (rol.equals("empleado")) {
+				dispose();
+				interfazEmpleado.setVisible(true);
 			}
-			
-			
+
 		} else {
-			JOptionPane.showMessageDialog(null, "Usuario y/o contraseña inválidos", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Usuario y/o contraseña inválidos", "Error de autenticación",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

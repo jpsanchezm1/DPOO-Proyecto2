@@ -1,10 +1,13 @@
 package coordinadores;
 
 import java.io.IOException;
+import java.util.Map;
 
 import modelo.habitaciones.ControladorHabitaciones;
 import modelo.servicios.restaurante.ControladorRestaurante;
+import modelo.servicios.restaurante.ProductoMenu;
 import modelo.servicios.ControladorServicios;
+import modelo.servicios.Servicio;
 import modelo.tarifas_habitaciones.ControladorTarifaHabitacion;
 
 public class CoordinadorAdministrador {
@@ -40,6 +43,14 @@ public class CoordinadorAdministrador {
 		// infoHabitación es de la forma: id;tipoHabitacion;capacidad;camas;balcon;vista;cocina
 		// ejemplo: 123;suite;3;estandar,doble;true;false;true
 		contrHab.crearHabitacion(infoHabitacion);
+	}
+	
+	public Map<String, Servicio> mapaServicios() {
+		return contrServicios.getMapaServicios();
+	}
+	
+	public Map<String, ProductoMenu> mapaProductosMenu() {
+		return contrRest.getMenuSimple();
 	}
 
 	public void registrarTarifa(String infoTarifa) {

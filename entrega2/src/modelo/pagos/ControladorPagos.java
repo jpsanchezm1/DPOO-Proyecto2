@@ -18,8 +18,9 @@ public class ControladorPagos {
 		recuperarInformacion();
 	}
 
-	public void pagarConsumo(Integer id, String referencia) {
+	public void pagarConsumo(String ide, String referencia) {
 		LocalTime tiempoActual = LocalTime.now();
+		Integer id = Integer.parseInt(ide);
 		Pago pago = new Pago(id, referencia, tiempoActual);
 		pagosPorHuesped.computeIfAbsent(id, k -> new ArrayList<>());
 		pagosPorHuesped.get(id).add(pago);
@@ -28,8 +29,9 @@ public class ControladorPagos {
 		editorPagos.registarPago(archivoPagos, infoPago);
 	}
 
-	public void pagarReserva(Integer id, String referencia) {
+	public void pagarReserva(String ide, String referencia) {
 		LocalTime tiempoActual = LocalTime.now();
+		Integer id = Integer.parseInt(ide);
 		Pago pago = new Pago(id, referencia, tiempoActual);
 		pagosDeReserva.put(referencia, pago);
 		EditorPagos editorPagos = new EditorPagos();
