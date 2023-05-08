@@ -10,7 +10,8 @@ import java.util.Map;
 public class CargadorRestaurante {
 
 	private void anadirProductoMenu(String categoria, String nombre, String precioString, String rangoDisp,
-			String llevableAHabitacionString, Map<String, Map<String, ProductoMenu>> menu) throws IOException {
+			String llevableAHabitacionString, Map<String, Map<String, ProductoMenu>> menu,
+			Map<String, ProductoMenu> menuSimple) throws IOException {
 		Float precio = Float.parseFloat(precioString);
 		Boolean llevableAHabitacion = Boolean.parseBoolean(llevableAHabitacionString);
 		String[] horasDisp = rangoDisp.split("-"); // rango es de la forma horaInicio-horaFin en formato hh:mm:ss o
@@ -20,10 +21,11 @@ public class CargadorRestaurante {
 		menu.computeIfAbsent(categoria, k -> new HashMap<>());
 		ProductoMenu producto = new ProductoMenu(nombre, precio, horaInicio, horaFin, llevableAHabitacion);
 		menu.get(categoria).put(nombre, producto);
+		menuSimple.put(nombre, producto);
 	}
 
-	private void cargarProductos(String categoria, String rutaArchivo, Map<String, Map<String, ProductoMenu>> menu)
-			throws IOException {
+	private void cargarProductos(String categoria, String rutaArchivo, Map<String, Map<String, ProductoMenu>> menu,
+			Map<String, ProductoMenu> menuSimple) throws IOException {
 		BufferedReader lector = new BufferedReader(new FileReader(rutaArchivo));
 		String linea;
 		while ((linea = lector.readLine()) != null) {
@@ -32,15 +34,15 @@ public class CargadorRestaurante {
 			String precio = parametros[1];
 			String rangoDisponibilidad = parametros[2];
 			String llevableAHabitacion = parametros[3];
-			anadirProductoMenu(categoria, nombre, precio, rangoDisponibilidad, llevableAHabitacion, menu);
+			anadirProductoMenu(categoria, nombre, precio, rangoDisponibilidad, llevableAHabitacion, menu, menuSimple);
 		}
 		lector.close();
 	}
 
 	public void cargarMenu(String rutaArchivoPlatos, String rutaArchivoBebidas,
-			Map<String, Map<String, ProductoMenu>> menu) throws IOException { 
-		// el mapa menu está compuesto por categoría = { nombreProducto: Producto} 
-		cargarProductos("platos", rutaArchivoPlatos, menu);
-		cargarProductos("bebidas", rutaArchivoBebidas, menu);
+			Map<String, Map<String, ProductoMenu>> menu, Map<String, ProductoMenu> menuSimple) throws IOException {
+		// el mapa menu está compuesto por categoría = { nombreProducto: Producto}
+		cargarProductos("platos", rutaArchivoPlatos, menu, menuSimple);
+		cargarProductos("bebidas", rutaArchivoBebidas, menu, menuSimple);
 	}
 }

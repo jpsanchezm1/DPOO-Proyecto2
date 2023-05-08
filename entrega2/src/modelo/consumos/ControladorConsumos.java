@@ -35,8 +35,7 @@ public class ControladorConsumos {
 		recuperarInformacion();
 	}
 
-	public void crearConsumoServicio(String idHuesped, String servicioString, ControladorHuespedes controladorRegistro,
-			Map<String, Servicio> mapaServicios) {
+	public void crearConsumoServicio(String idHuesped, String servicioString) {
 		Huesped huesped = controladorRegistro.getHuespedPorId(Integer.parseInt(idHuesped));
 		Integer id = controladorRegistro.getGrupoPorId(Integer.parseInt(idHuesped)).getRepresentante()
 				.getIdentificacion();
@@ -46,8 +45,7 @@ public class ControladorConsumos {
 		mapaConsumosServicios.get(id).add(consumo);
 	}
 
-	public void crearConsumoRest(String idHuesped, String productoMenu, ControladorHuespedes controladorRegistro,
-			Map<String, ProductoMenu> mapaProductosMenu) {
+	public void crearConsumoRest(String idHuesped, String productoMenu) {
 		Huesped huesped = controladorRegistro.getHuespedPorId(Integer.parseInt(idHuesped));
 		Integer id = controladorRegistro.getGrupoPorId(Integer.parseInt(idHuesped)).getRepresentante()
 				.getIdentificacion();
