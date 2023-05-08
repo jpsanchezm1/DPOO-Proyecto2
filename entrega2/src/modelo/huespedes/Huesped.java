@@ -3,7 +3,7 @@ package modelo.huespedes;
 public class Huesped {
 
 	private String nombre;
-	private int identificacion;
+	private Integer identificacion;
 	private int numCelular;
 	private String correo;
 
@@ -19,7 +19,7 @@ public class Huesped {
 		return nombre;
 	}
 
-	public int getIdentificacion() {
+	public Integer getIdentificacion() {
 		return identificacion;
 	}
 
