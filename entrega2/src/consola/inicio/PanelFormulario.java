@@ -19,7 +19,7 @@ public class PanelFormulario extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static final String CREAR_CUENTA = "Crear cuenta";
 	private static final String INICIAR_SESION = "Iniciar sesion";
-	private JTextField textField1;
+	private JTextField textField1, textField2;
 	private JPasswordField passwordField;
 	private JButton bCrearCuenta;
 	private JButton bInicio;
@@ -31,24 +31,37 @@ public class PanelFormulario extends JPanel {
 		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(280, 220));
 		setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
-		
+
 		this.padreInicio = padreIncio;
 
 		add(Box.createRigidArea(new Dimension(40, 30)));
-		
+
 		JPanel usuarioPanel = new JPanel(new BorderLayout());
 		JLabel lUsuario = new JLabel("Usuario: ");
 		usuarioPanel.add(lUsuario, BorderLayout.WEST);
 		add(usuarioPanel);
-		
+
 		add(Box.createRigidArea(new Dimension(40, 10)));
 
 		textField1 = new JTextField();
 		textField1.setPreferredSize(new Dimension(80, 30));
 		add(textField1);
-		
+
 		add(Box.createRigidArea(new Dimension(40, 10)));
-		
+
+		JPanel rolPanel = new JPanel(new BorderLayout());
+		JLabel lrol = new JLabel("rol: ");
+		rolPanel.add(lrol, BorderLayout.WEST);
+		add(rolPanel);
+
+		add(Box.createRigidArea(new Dimension(40, 10)));
+
+		textField2 = new JTextField();
+		textField2.setPreferredSize(new Dimension(80, 30));
+		add(textField2);
+
+		add(Box.createRigidArea(new Dimension(40, 10)));
+
 		JPanel contraseniaPanel = new JPanel(new BorderLayout());
 		JLabel lContrasenia = new JLabel("Contrasenia: ");
 		contraseniaPanel.add(lContrasenia, BorderLayout.WEST);
@@ -61,10 +74,11 @@ public class PanelFormulario extends JPanel {
 		passwordField.setPreferredSize(new Dimension(40, 30));
 		add(passwordField);
 
-		add(Box.createRigidArea(new Dimension(40, 35)));
+		add(Box.createRigidArea(new Dimension(40, 10)));
 
 		bInicio = new JButton(INICIAR_SESION);
 		bInicio.setPreferredSize(new Dimension(100, 40));
+		bInicio.addActionListener(this.padreInicio);
 		bInicio.setAlignmentX(CENTER_ALIGNMENT);
 		add(bInicio);
 
@@ -93,9 +107,22 @@ public class PanelFormulario extends JPanel {
 		add(bCrearCuenta);
 
 		add(Box.createRigidArea(new Dimension(40, 30)));
-		
+
 		setVisible(true);
 	}
-	
-	
+
+	public String getTextField1() {
+		return this.textField1.getText();
+	}
+
+	public String getTextField2() {
+		return this.textField2.getText();
+	}
+
+	public String getPasswordField() {
+		char[] caracteres = this.passwordField.getPassword();
+		String contraseniaString = new String(caracteres);
+		return contraseniaString;
+	}
+
 }

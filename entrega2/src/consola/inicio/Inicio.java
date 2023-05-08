@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,10 +20,13 @@ public class Inicio extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private InterfazPMS principalInterfazPMS;
 	private static final String CREAR_CUENTA = "Crear cuenta";
+	private static final String INICIAR_SESION = "Iniciar sesion";
+	private PanelFormulario panelForm;
 
 	public Inicio(InterfazPMS p) {
 
 		principalInterfazPMS = p;
+		
 
 		// Panel principal
 		new BorderLayout();
@@ -55,7 +59,7 @@ public class Inicio extends JPanel implements ActionListener {
 		panelCentro.setPreferredSize(new Dimension(320, 340));
 		panelCentro.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 
-		JPanel panelForm = new PanelFormulario(this);
+		panelForm = new PanelFormulario(this);
 
 		panelCentro.add(panelForm, BorderLayout.CENTER);
 
@@ -72,6 +76,19 @@ public class Inicio extends JPanel implements ActionListener {
 
 		if (comando.equals(CREAR_CUENTA)) {
 			principalInterfazPMS.mostrarPanelRegistro();
+		}
+		if (comando.equals(INICIAR_SESION)) {
+			
+			String usuario = panelForm.getTextField1();
+			String rol = panelForm.getTextField2();
+			String contrasenia = panelForm.getPasswordField();
+			
+			try {
+				principalInterfazPMS.iniciarSesion(rol, usuario, contrasenia);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	

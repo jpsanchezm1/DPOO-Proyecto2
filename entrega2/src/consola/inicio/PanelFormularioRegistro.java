@@ -21,12 +21,15 @@ public class PanelFormularioRegistro extends JPanel{
 	private JPasswordField passwordField;
 	private JButton bRegistrar;
 	private JLabel titleJLabel;
+	private Registro padreRegistro;
 	
-	public PanelFormularioRegistro() {
+	public PanelFormularioRegistro(Registro padreRegistro) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(300, 300));
 		setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
+		
+		this.padreRegistro = padreRegistro;
 		
 		add(Box.createRigidArea(new Dimension(40, 30)));
 		
@@ -80,9 +83,24 @@ public class PanelFormularioRegistro extends JPanel{
 		bRegistrar = new JButton(REGISTRAR);
 		bRegistrar.setPreferredSize(new Dimension(100, 40));
 		bRegistrar.setAlignmentX(CENTER_ALIGNMENT);
+		bRegistrar.addActionListener(this.padreRegistro);
 		add(bRegistrar);
 
 		add(Box.createRigidArea(new Dimension(40, 30)));
+	}
+
+	public String getUsuarioTextField() {
+		return this.usuarioTextField.getText();
+	}
+	
+	public String getRolTextField() {
+		return this.rolTextField.getText();
+	}
+	
+	public String getPasswordField() {
+		char[] caracteres = this.passwordField.getPassword();
+		String contraseniaString = new String(caracteres);
+		return contraseniaString;
 	}
 }
 
