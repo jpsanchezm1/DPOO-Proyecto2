@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import modelo.huespedes.ControladorRegistro;
+import modelo.huespedes.ControladorHuespedes;
 import modelo.huespedes.Huesped;
 import modelo.servicios.restaurante.ProductoMenu;
 import modelo.servicios.Servicio;
@@ -15,7 +15,7 @@ import modelo.servicios.Servicio;
 public class CargadorConsumos {
 
 	private void cargarConsumosServicios(String archivoConsumos,
-			Map<Integer, List<ConsumoServicio>> mapaConsumosServicios, ControladorRegistro controladorRegistro,
+			Map<Integer, List<ConsumoServicio>> mapaConsumosServicios, ControladorHuespedes controladorRegistro,
 			Map<String, Servicio> mapaServicios) throws IOException {
 		BufferedReader lector = new BufferedReader(new FileReader(archivoConsumos));
 		String linea;
@@ -33,7 +33,7 @@ public class CargadorConsumos {
 	}
 
 	private void cargarConsumosRestaurante(String archivoConsumos,
-			Map<Integer, List<ConsumoRestaurante>> mapaConsumosRestaurante, ControladorRegistro controladorRegistro,
+			Map<Integer, List<ConsumoRestaurante>> mapaConsumosRestaurante, ControladorHuespedes controladorRegistro,
 			Map<String, ProductoMenu> mapaProductosMenu) throws IOException {
 		BufferedReader lector = new BufferedReader(new FileReader(archivoConsumos));
 		String linea;
@@ -52,7 +52,7 @@ public class CargadorConsumos {
 
 	public void cargarConsumos(String archivoConsumosServicios, String archivoConsumosRest,
 			Map<Integer, List<ConsumoServicio>> mapaConsumosServicios,
-			Map<Integer, List<ConsumoRestaurante>> mapaConsumosRestaurante, ControladorRegistro controladorRegistro,
+			Map<Integer, List<ConsumoRestaurante>> mapaConsumosRestaurante, ControladorHuespedes controladorRegistro,
 			Map<String, Servicio> mapaServicios, Map<String, ProductoMenu> mapaProductosMenu) throws IOException {
 		cargarConsumosServicios(archivoConsumosServicios, mapaConsumosServicios, controladorRegistro, mapaServicios);
 		cargarConsumosRestaurante(archivoConsumosRest, mapaConsumosRestaurante, controladorRegistro, mapaProductosMenu);

@@ -1,0 +1,1 @@
+idRepresentante;acompanantes;cuotaTotal
