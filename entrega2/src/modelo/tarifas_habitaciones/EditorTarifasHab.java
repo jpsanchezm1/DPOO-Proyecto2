@@ -8,7 +8,7 @@ public class EditorTarifasHab {
 
 	public void guardarTarifa(String infoTarifa, String rutaArchivo) {
 
-		try (BufferedWriter editor = new BufferedWriter(new FileWriter(rutaArchivo))) {
+		try (BufferedWriter editor = new BufferedWriter(new FileWriter(rutaArchivo, true))) {
 			editor.newLine();
 			editor.write(infoTarifa);
 		} catch (IOException e) {

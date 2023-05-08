@@ -9,7 +9,7 @@ public class ControladorHabitaciones {
 	// guardamos por id todas las habitaciones
 	private HashMap<Integer, Habitacion> habitaciones;
 
-	private String archivoHabitaciones = "./data/servicios/habitaciones.txt";
+	private String archivoHabitaciones = "./data/habitaciones/habitaciones.txt";
 
 	public ControladorHabitaciones() throws IOException {
 

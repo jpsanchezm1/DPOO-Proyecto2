@@ -20,9 +20,9 @@ public class CargadorHabitaciones {
 				String tipoHabitacion = partes[1];
 				int capacidad = Integer.parseInt(partes[2]);
 				String camas = partes[3];
-				boolean balcon = partes[4].equals("si");
-				boolean vista = partes[5].equals("si");
-				boolean cocina = partes[6].equals("si");
+				boolean balcon = partes[4].equals("true");
+				boolean vista = partes[5].equals("true");
+				boolean cocina = partes[6].equals("true");
 
 				Habitacion habitacionActual = new Habitacion(id, tipoHabitacion, capacidad, camas, balcon, vista,
 						cocina);

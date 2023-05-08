@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ControladorRegistro {
+public class ControladorHuespedes {
 
 	// guardamos los huespedes por su id
 	private HashMap<Integer, Huesped> huespedesReg;
@@ -16,7 +16,7 @@ public class ControladorRegistro {
 	private String archivoHuespedes = "./data/huespedes/huespedes.txt";
 	private String archivoGrupos = "./data/huespedes/grupos.txt";
 
-	public ControladorRegistro() throws IOException {
+	public ControladorHuespedes() throws IOException {
 		recuperarInformacion();
 	}
 

@@ -8,7 +8,7 @@ public class EditorReservas {
 
 	public void guardarReserva(int idRepre, Reserva reserva, String rutaArchivo) {
 
-		try (BufferedWriter editor = new BufferedWriter(new FileWriter(rutaArchivo))) {
+		try (BufferedWriter editor = new BufferedWriter(new FileWriter(rutaArchivo, true))) {
 
 			String infoReserva = "" + idRepre;
 			infoReserva += ";" + reserva.getFechaInicio();

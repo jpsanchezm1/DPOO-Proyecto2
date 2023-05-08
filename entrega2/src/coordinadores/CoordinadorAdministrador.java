@@ -3,54 +3,54 @@ package coordinadores;
 import java.io.IOException;
 
 import modelo.habitaciones.ControladorHabitaciones;
-import modelo.servicios.ControladorRestaurante;
+import modelo.servicios.restaurante.ControladorRestaurante;
 import modelo.servicios.ControladorServicios;
 import modelo.tarifas_habitaciones.ControladorTarifaHabitacion;
 
 public class CoordinadorAdministrador {
 
+	private ControladorHabitaciones contrHab;
+
+	private ControladorTarifaHabitacion contrTarifaHabi;
+
+	private ControladorServicios contrServicios;
+
+	private ControladorRestaurante contrRest;
+
 	public CoordinadorAdministrador() throws IOException {
-		ControladorHabitaciones contrHab = new ControladorHabitaciones();
-		ControladorTarifaHabitacion contrTarifaHabi = new ControladorTarifaHabitacion();
-		ControladorServicios contrServicios = new ControladorServicios();
-		ControladorRestaurante contrResta = new ControladorRestaurante();
-
+		contrHab = new ControladorHabitaciones();
+		contrTarifaHabi = new ControladorTarifaHabitacion();
+		contrServicios = new ControladorServicios();
+		contrRest = new ControladorRestaurante();
 	}
 
-	public void ejecutarOpcionUno() {
-
+	public void cargarHabitaciones(String rutaArchivo) throws IOException {
+		contrHab.cargarHabitaciones(rutaArchivo);
 	}
 
-	public void ejecutarOpcionDos() {
-
+	public void cargarTarifas(String rutaArchivo) throws IOException {
+		contrTarifaHabi.cargarTarifas(rutaArchivo);
 	}
 
-	public void ejecutarOpcionTres() {
-
+	public void cargarMenuRestaurante(String rutaArchivoPlatos, String rutaArchivoBebidas) throws IOException {
+		contrRest.cargarMenu(rutaArchivoPlatos, rutaArchivoBebidas);
 	}
 
-	public void ejecutarOpcionCuatro() {
-
+	public void registrarHabitacion(String infoHabitacion) {
+		// infoHabitación es de la forma: id;tipoHabitacion;capacidad;camas;balcon;vista;cocina
+		// ejemplo: 123;suite;3;estandar,doble;true;false;true
+		contrHab.crearHabitacion(infoHabitacion);
 	}
 
-	public void ejecutarOpcionCinco() {
-
+	public void registrarTarifa(String infoTarifa) {
+		// infoTarifa es de la forma: tipoHabitacion;fechaDeInicio;fechaDeFin;precio
+		// ejemplo: suite;2003-10-12;2003-11-12;24 
+		// precio puede ser float
+		// el formato de fechas es yyyy-mm-dd
+		contrTarifaHabi.configurarTarifa(infoTarifa);
 	}
 
-	public void ejecutarOpcionSeis() {
-
+	public void cargarServicios(String rutaArchivo) throws IOException {
+		contrServicios.cargarServicios(rutaArchivo);
 	}
-
-	public void ejecutarOpcionSiete() {
-
-	}
-
-	public void ejecutarOpcionOcho() {
-
-	}
-
-	public void ejecutarOpcionNueve() {
-
-	}
-
 }

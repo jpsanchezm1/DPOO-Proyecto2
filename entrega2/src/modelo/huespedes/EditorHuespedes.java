@@ -10,7 +10,7 @@ public class EditorHuespedes {
 
 	public void guardarHuesped(String infoHuesped, String rutaArchivo) {
 
-		try (BufferedWriter editor = new BufferedWriter(new FileWriter(rutaArchivo))) {
+		try (BufferedWriter editor = new BufferedWriter(new FileWriter(rutaArchivo, true))) {
 			editor.newLine();
 			editor.write(infoHuesped);
 		} catch (IOException e) {
