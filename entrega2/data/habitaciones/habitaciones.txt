@@ -1,0 +1,1 @@
+id;tipoHabitacion;capacidad;camas;balcon;vista;cocina

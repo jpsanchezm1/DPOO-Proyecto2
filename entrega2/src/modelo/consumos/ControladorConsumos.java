@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import modelo.huespedes.ControladorRegistro;
+import modelo.huespedes.ControladorHuespedes;
 import modelo.huespedes.Huesped;
 import modelo.servicios.restaurante.ProductoMenu;
 import modelo.servicios.Servicio;
@@ -21,13 +21,13 @@ public class ControladorConsumos {
 
 	private Map<Integer, List<ConsumoRestaurante>> mapaConsumosRest = new HashMap<>(); // id representante: consumos
 
-	private ControladorRegistro controladorRegistro;
+	private ControladorHuespedes controladorRegistro;
 
 	private Map<String, ProductoMenu> mapaProductosMenu;
 
 	private Map<String, Servicio> mapaServicios;
 
-	public ControladorConsumos(ControladorRegistro controladorRegistro, Map<String, ProductoMenu> mapaProductosMenu,
+	public ControladorConsumos(ControladorHuespedes controladorRegistro, Map<String, ProductoMenu> mapaProductosMenu,
 			Map<String, Servicio> mapaServicios) throws IOException {
 		this.controladorRegistro = controladorRegistro;
 		this.mapaProductosMenu = mapaProductosMenu;
@@ -35,7 +35,7 @@ public class ControladorConsumos {
 		recuperarInformacion();
 	}
 
-	public void crearConsumoServicio(String idHuesped, String servicioString, ControladorRegistro controladorRegistro,
+	public void crearConsumoServicio(String idHuesped, String servicioString, ControladorHuespedes controladorRegistro,
 			Map<String, Servicio> mapaServicios) {
 		Huesped huesped = controladorRegistro.getHuespedPorId(Integer.parseInt(idHuesped));
 		Integer id = controladorRegistro.getGrupoPorId(Integer.parseInt(idHuesped)).getRepresentante()
@@ -46,7 +46,7 @@ public class ControladorConsumos {
 		mapaConsumosServicios.get(id).add(consumo);
 	}
 
-	public void crearConsumoRest(String idHuesped, String productoMenu, ControladorRegistro controladorRegistro,
+	public void crearConsumoRest(String idHuesped, String productoMenu, ControladorHuespedes controladorRegistro,
 			Map<String, ProductoMenu> mapaProductosMenu) {
 		Huesped huesped = controladorRegistro.getHuespedPorId(Integer.parseInt(idHuesped));
 		Integer id = controladorRegistro.getGrupoPorId(Integer.parseInt(idHuesped)).getRepresentante()
