@@ -7,19 +7,23 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class PanelFormularioRegistro extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private static final String REGISTRAR = "Registrar";
-	private JTextField usuarioTextField, rolTextField;
+	private JTextField usuarioTextField;
 	private JPasswordField passwordField;
 	private JButton bRegistrar;
+	private ButtonGroup tipoUsuario;
+	private JRadioButton admin, recep, empleG;
 	private JLabel titleJLabel;
 	private Registro padreRegistro;
 	
@@ -54,15 +58,32 @@ public class PanelFormularioRegistro extends JPanel{
 		add(Box.createRigidArea(new Dimension(40, 10)));
 		
 		JPanel rolPanel = new JPanel(new BorderLayout());
-		JLabel lrol = new JLabel("Rol: ");
-		rolPanel.add(lrol, BorderLayout.WEST);
+		rolPanel.setLayout(new BoxLayout(rolPanel, BoxLayout.X_AXIS));
+
+		JLabel rolLabel = new JLabel("Rol: ");
+		rolPanel.add(rolLabel);
+
+		admin = new JRadioButton("Admin");
+		admin.setActionCommand("administrador");
+		recep = new JRadioButton("Recepcionista");
+		recep.setActionCommand("recepcionista");
+		empleG = new JRadioButton("Empleado");
+		empleG.setActionCommand("empleadoGeneral");
+
+		tipoUsuario = new ButtonGroup();
+		tipoUsuario.add(admin);
+		tipoUsuario.add(recep);
+		tipoUsuario.add(empleG);
+
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
+		buttonsPanel.add(admin);
+		buttonsPanel.add(recep);
+		rolPanel.add(buttonsPanel);
+
+		rolPanel.add(empleG, BorderLayout.LINE_START);
+
 		add(rolPanel);
-		
-		add(Box.createRigidArea(new Dimension(40, 10)));
-		
-		rolTextField = new JTextField();
-		rolTextField.setPreferredSize(new Dimension(80, 30));
-		add(rolTextField);
 		
 		add(Box.createRigidArea(new Dimension(40, 10)));
 		
@@ -74,7 +95,7 @@ public class PanelFormularioRegistro extends JPanel{
 		add(Box.createRigidArea(new Dimension(40, 10)));
 		
 		passwordField = new JPasswordField();
-		passwordField.setEchoChar('â');
+		passwordField.setEchoChar('ï¿½');
 		passwordField.setPreferredSize(new Dimension(40, 30));
 		add(passwordField);
 
@@ -93,14 +114,14 @@ public class PanelFormularioRegistro extends JPanel{
 		return this.usuarioTextField.getText();
 	}
 	
-	public String getRolTextField() {
-		return this.rolTextField.getText();
-	}
-	
 	public String getPasswordField() {
 		char[] caracteres = this.passwordField.getPassword();
 		String contraseniaString = new String(caracteres);
 		return contraseniaString;
+	}
+	
+	public String getRol() {
+		return tipoUsuario.getSelection().getActionCommand();
 	}
 }
 

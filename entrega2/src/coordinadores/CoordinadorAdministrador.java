@@ -64,4 +64,9 @@ public class CoordinadorAdministrador {
 	public void cargarServicios(String rutaArchivo) throws IOException {
 		contrServicios.cargarServicios(rutaArchivo);
 	}
+
+	public void guardarRegistros() throws IOException {
+		contrRest.guardarRegistros();
+		contrServicios.guardarRegistros();
+	}
 }

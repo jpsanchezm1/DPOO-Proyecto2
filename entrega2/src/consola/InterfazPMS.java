@@ -1,5 +1,7 @@
 package consola;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -9,6 +11,7 @@ import consola.administracion.InterfazAdministracion;
 import consola.empleado.InterfazEmpleado;
 import consola.inicio.Inicio;
 import consola.inicio.Registro;
+import consola.recepcion.InterfazRecepcion;
 import coordinadores.CoordinadorAdministrador;
 import coordinadores.CoordinadorEmpleado;
 import coordinadores.CoordinadorRecepcion;
@@ -21,6 +24,8 @@ public class InterfazPMS extends JFrame {
 	private Inicio panelInicio;
 	private Registro panelRegistro;
 	private InterfazEmpleado interfazEmpleado;
+	private InterfazAdministracion interfazAdmin;
+	private InterfazRecepcion interfazRecep;
 	private Autenticador autenticador = new Autenticador();
 	private CoordinadorAdministrador coordinadorAdministrador = new CoordinadorAdministrador();
 	private CoordinadorRecepcion coordinadorRecepcion = new CoordinadorRecepcion();
@@ -30,9 +35,7 @@ public class InterfazPMS extends JFrame {
 
 		this.coordinadorEmpleado = new CoordinadorEmpleado(coordinadorRecepcion.getControladorHuespedes(),
 				coordinadorRecepcion.getControladorPagos(), coordinadorAdministrador.mapaServicios(),
-				coordinadorAdministrador.mapaProductosMenu());
-
-		this.interfazEmpleado = new InterfazEmpleado(this);
+				coordinadorAdministrador.mapaProductosMenu());;
 
 		setTitle("Property Managament System");
 		setSize(700, 600);
@@ -45,6 +48,17 @@ public class InterfazPMS extends JFrame {
 		add(panelInicio);
 
 		autenticador.crearAutenticadores();
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					guardarRegistros();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -58,10 +72,7 @@ public class InterfazPMS extends JFrame {
 
 	public void registrarUsuario(String rol, String nombreUsuario, String contrasena) throws IOException {
 		autenticador.registrarUsuario(rol, nombreUsuario, contrasena);
-		if (rol.equals("empleado")) {
-			dispose();
-			interfazEmpleado.setVisible(true);
-		}
+		iniciarSesion(rol, nombreUsuario, contrasena);
 	}
 
 	public void iniciarSesion(String rol, String usuario, String contrasenia) throws IOException {
@@ -72,15 +83,16 @@ public class InterfazPMS extends JFrame {
 		if (validarContrasena && validarUsuario) {
 
 			if (rol.equals("administrador")) {
-
 				dispose();
-				InterfazAdministracion interfazAdmin = new InterfazAdministracion();
+				interfazAdmin = new InterfazAdministracion(this);
 				interfazAdmin.setVisible(true);
-
 			} else if (rol.equals("recepcionista")) {
-
-			} else if (rol.equals("empleado")) {
 				dispose();
+				interfazRecep = new InterfazRecepcion(this);
+				interfazRecep.setVisible(true);
+			} else if (rol.equals("empleadoGeneral")) {
+				dispose();
+				interfazEmpleado = new InterfazEmpleado(this);
 				interfazEmpleado.setVisible(true);
 			}
 
@@ -92,5 +104,10 @@ public class InterfazPMS extends JFrame {
 	
 	public void registrarConsumo(String categoria,String id,String referencia, String pago) {
 		coordinadorEmpleado.registrarConsumo(categoria, id, referencia, pago);
+	}
+
+	public void guardarRegistros() throws IOException {
+		coordinadorEmpleado.guardarRegistros();
+		coordinadorAdministrador.guardarRegistros();
 	}
 }

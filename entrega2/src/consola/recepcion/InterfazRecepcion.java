@@ -2,9 +2,14 @@ package consola.recepcion;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+
+import consola.InterfazPMS;
 
 public class InterfazRecepcion extends JFrame {
 
@@ -15,9 +20,11 @@ public class InterfazRecepcion extends JFrame {
 	private PanelRegistrarSalida opcionRegistrarSalida;
 	private PanelConsultarHabitaciones opcionConsultar;
 	private JDialog dialogRegistrar;
+	private InterfazPMS padre;
 
-	public InterfazRecepcion() {
-
+	public InterfazRecepcion(InterfazPMS padreI) {
+		
+		this.padre = padreI;
 		setLayout(new GridBagLayout());
 		setTitle("Recepcion");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +49,17 @@ public class InterfazRecepcion extends JFrame {
 
 		// Configuraci�n del layout
 		// setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					padre.guardarRegistros();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 
 	}
 
