@@ -80,7 +80,8 @@ public class Inicio extends JPanel implements ActionListener {
 		if (comando.equals(INICIAR_SESION)) {
 			
 			String usuario = panelForm.getTextField1();
-			String rol = panelForm.getTextField2();
+			String rol = panelForm.getRol();
+			System.out.println(rol);
 			String contrasenia = panelForm.getPasswordField();
 			
 			try {

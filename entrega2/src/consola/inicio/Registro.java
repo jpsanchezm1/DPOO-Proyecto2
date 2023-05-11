@@ -36,7 +36,7 @@ public class Registro extends JDialog implements ActionListener {
 		if (comando.equals(REGISTRAR)) {
 
 			String usuario = panelFormularioRegistro.getUsuarioTextField();
-			String rol = panelFormularioRegistro.getRolTextField();
+			String rol = panelFormularioRegistro.getRol();
 			String contrasenia = panelFormularioRegistro.getPasswordField();
 
 			try {

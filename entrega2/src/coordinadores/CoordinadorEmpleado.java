@@ -34,4 +34,8 @@ public class CoordinadorEmpleado {
 			controladorConsumos.crearConsumoServicio(idHuesped, referencia);
 		}
 	}
+	
+	public void guardarRegistros() throws IOException {
+		controladorConsumos.guardarRegistros();
+	}
 }

@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
@@ -16,8 +19,8 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
 	private PanelOpciones panelOpciones;
 	private InterfazPMS padre;
 
-	public InterfazEmpleado(InterfazPMS padre) {
-		this.padre = padre;
+	public InterfazEmpleado(InterfazPMS padreI) {
+		this.padre = padreI;
 		setLayout(new GridBagLayout());
 		setTitle("Empleado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,6 +28,18 @@ public class InterfazEmpleado extends JFrame implements ActionListener {
 		getContentPane().setBackground(Color.DARK_GRAY);
 		setResizable(false);
 		setLocationRelativeTo(null); // Centra la ventana en la pantalla
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					padre.guardarRegistros();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 		panelOpciones = new PanelOpciones(this);
 		panelConsumo = new PanelConsumo(this);
 		panelConsumo.setTitle("Registrar Consumos");

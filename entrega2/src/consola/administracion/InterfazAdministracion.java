@@ -2,6 +2,8 @@ package consola.administracion;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -11,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import consola.InterfazPMS;
 import coordinadores.CoordinadorAdministrador;
 import modelo.habitaciones.ControladorHabitaciones;
 
@@ -19,9 +22,11 @@ public class InterfazAdministracion extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private PanelOpciones panelOpciones;
 	private CoordinadorAdministrador coordAdministrador;
+	private InterfazPMS padre;
 
-	public InterfazAdministracion() throws IOException {
-
+	public InterfazAdministracion(InterfazPMS padreI) throws IOException {
+		
+		this.padre = padreI;
 		setTitle("Administracion");
 		setSize(700, 600);
 		setResizable(false);
@@ -37,6 +42,17 @@ public class InterfazAdministracion extends JFrame {
 		panelOpsCentrado.add(panelOpciones);
 
 		add(panelOpciones);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					padre.guardarRegistros();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 
 	}
 
@@ -140,10 +156,5 @@ public class InterfazAdministracion extends JFrame {
 			JOptionPane.showMessageDialog(null, "El archivo seleccionado no es un archivo de texto.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
-	}
-
-	public static void main(String[] args) throws IOException {
-		InterfazAdministracion interfaz = new InterfazAdministracion();
-		interfaz.setVisible(true);
 	}
 }
